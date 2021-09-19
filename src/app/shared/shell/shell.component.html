@@ -1,1 +1,95 @@
-<p>shell works!</p>
+<!-- 'Shell' of application, with side menu and top navbar -->
+
+
+<!-- Side navigation -->
+<mat-sidenav-container class="sidenav-container">
+  <!-- SideNav element -->
+  <!-- # is a template variable, control the component directly from HTML like opening and closing a drawer -->
+  <!-- Conditional logic to make this responsive, async pipe subs/unsubs to observable -->
+  <!-- Role attribute is just for accessibility (no impact unless with screen reader) -->
+  <!-- Mode customises the look so that it's a drawer when on a handset and just on the side when on Desktop -->
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="false">
+    <!-- Name of Toolbar at the top -->
+    <mat-toolbar>Menu</mat-toolbar>
+    <!-- List of navigation elements, with click events bound to the drawer to close them when clicked -->
+    <mat-nav-list>
+      <a mat-list-item routerLink="/" (click)="drawer.close()">Home</a>
+      <a mat-list-item routerLink="/login" (click)="drawer.close()">Log In</a>
+      <a mat-list-item routerLink="/kanban" (click)="drawer.close()">Kanban Demo</a>
+      <a mat-list-item routerLink="/customers" (click)="drawer.close()">SSR Demo</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+      <!-- Top Toolbar -->
+      <mat-toolbar>
+
+        <!-- Left side 3 lines menu icon (only for handset users) -->
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+
+        <!-- App name and title at the top left -->
+        <span class="logo" routerLink="/">🔥 Angular Firestarter</span>
+        <span class="fill-space"></span>
+
+        <!-- Display the links on top toolbar for larger displays -->
+        <div *ngIf="(isHandset$ | async)===false">
+          <a mat-button routerLink="/">🏠 Home</a>
+          <a mat-button routerLink="/kanban">🍱 Kanban Demo</a>
+          <a mat-button routerLink="/customers">⚡ SSR Demo</a>
+          <!-- <a mat-button routerLink="/login" *ngIf="(afAuth.authState | async)===false">🔑 Login</a>
+          <a mat-button routerLink="/login" *ngIf="afAuth.authState | async as user" >
+            <img class="avatar" [src]="user.photoURL || 'assets/default-user.svg'">
+            Profile
+          </a> -->
+        </div>
+
+        <!-- Dropdown menu with additional links -->
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <!-- Template variable like before, trigger is referenced above (not sure why it is named) -->
+        <mat-menu #menu="matMenu">
+          <!-- Angular automatically positions the icons and text intelligently -->
+          <!-- Slack channel -->
+          <a mat-menu-item target="_blank" href="https://fireship.page.link/slack">
+            <i>💬</i>
+            <span>Chat on Slack</span>
+          </a>
+          <!-- Source code -->
+          <a mat-menu-item target="_blank" href="https://github.com/codediodeio/angular-firestarter">
+            <i>💾</i>
+            <span>Code on Github</span>
+          </a>
+          <!-- Course link -->
+          <a mat-menu-item target="_blank" href="https://fireship.io/courses/angular">
+            <i>🔥</i>
+            <span>Full Course on Fireship</span>
+          </a>
+          <!-- Fireship YouTube -->
+          <a mat-menu-item target="_blank" href="https://www.youtube.com/channel/UCsBjURrPoezykLs9EqgamOA">
+            <i>📺</i>
+            <span>Watch on YouTube</span>
+          </a>
+        </mat-menu>
+      </mat-toolbar>
+
+    <!-- Nav elements in the side nav are static, but the actual page content is different -->
+    <!-- Anything placed inside the shell (from app.component.html) is placed in this ng-content, TRANSCLUSION -->
+    <!-- So we can put whatever page needs to be inside the shell here depending on the route! -->
+    <ng-content></ng-content>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
