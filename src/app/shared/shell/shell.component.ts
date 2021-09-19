@@ -8,7 +8,7 @@ import { map, shareReplay } from 'rxjs/operators';
   templateUrl: './shell.component.html',
   styleUrls: ['./shell.component.scss']
 })
-export class ShellComponent implements OnInit {
+export class ShellComponent {
 
   // Observable listening to different breakpoints and react depending on the viewport size
   isHandset$:Observable<boolean> = this.breakpointObserver.observe([Breakpoints.Handset])  // Found handset display
@@ -18,8 +18,5 @@ export class ShellComponent implements OnInit {
     );
 
   constructor(private breakpointObserver: BreakpointObserver) {}
-
-  // For some reason Angular needs this and ES6 says it can't be empty..
-  ngOnInit(): void { console.log("Shell Initialised"); }
 
 }
