@@ -5,18 +5,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-// Import only the required modules
-import { MatButtonModule } from '@angular/material/button';
+// Shared
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatButtonModule  // Add it here to be used in the component
+    SharedModule  // Import shared module to avoid repeated imports for common components
   ],
   providers: [],
   bootstrap: [AppComponent]
