@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "firestarter-efa59": {
+      "hosting": {
+        "firestarter": [
+          "firestarter-efa59"
+        ]
+      }
+    }
+  }
+}
