@@ -26,9 +26,9 @@ import { environment } from 'src/environments/environment';
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,  // Import shared module to avoid repeated imports for common components
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireModule.initializeApp(environment.firebase),  // Firebase app
+    AngularFirestoreModule,                                 // Firestore
+    AngularFireAuthModule                                   // Authentication
   ],
   providers: [],
   bootstrap: [AppComponent]
